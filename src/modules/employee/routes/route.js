@@ -5,11 +5,11 @@ var controller = require('../controllers/controller'),
 module.exports = function (app) {
     var url = '/api/employees';
     var urlWithParam = '/api/employees/:employeeId';
-    app.route(url).all(policy.isAllowed)
+    app.route(url)//.all(policy.isAllowed)
         .get(controller.getList)
         .post(controller.create);
 
-    app.route(urlWithParam).all(policy.isAllowed)
+    app.route(urlWithParam)//.all(policy.isAllowed)
         .get(controller.read)
         .put(controller.update)
         .delete(controller.delete);

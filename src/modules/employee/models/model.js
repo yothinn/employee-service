@@ -17,7 +17,7 @@ var EmployeeSchema = new Schema({
         type: String
        
     },
-    name: {
+    firstName: {
         type: String
         
     },
