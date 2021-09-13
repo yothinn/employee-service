@@ -5,62 +5,58 @@ var Schema = mongoose.Schema;
 
 
 var EmployeeSchema = new Schema({
-    employeeId: {
+    id: {
         type: String
-       
+    },
+    department: {
+        type: String
+    },
+    salary: {
+        type: Number
+    },
+    activate: {
+        type: Boolean
     },
     citizenId: {
         type: String
-       
     },
     title: {
-        type: String
-       
+        type: String 
     },
     firstName: {
         type: String
-        
     },
     lastName: {
-        type: String
-       
+        type: String 
     },
     tel: {
         type: String
-       
     },
-    address01: {
+    addr01: {
         type: String
-       
     },
     street: {
+        type: String 
+    },
+    subDistrict: {
         type: String
-       
     },
     district: {
-        type: String
-       
+        type: String 
     },
     province: {
         type: String
-       
     },
     zip: {
-        type: String
-       
+        type: String 
     },
-    positions: {
-        type: String    
+    position: {
+        type: String
     },
     age:{
         type: String
     },
-    imageUrl:{
-        
-    },
-    financialAmount:{
-        type: Number
-    },
+    imageUrl:{},
     created: {
         type: Date,
         default: Date.now
