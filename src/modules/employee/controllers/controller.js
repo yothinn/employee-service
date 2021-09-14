@@ -25,8 +25,8 @@ exports.getList = async function (req, res) {
     if (searchText) {
         query['$and'].push({
             $or: [
-                { id: { $regex: `^${searchText}`, $options: "i" } },
-                { customerName: { $regex: `${searchText}`, $options: "i" } },
+                { firstName: { $regex: `^${searchText}`, $options: "i" } },
+                { lastName: { $regex: `${searchText}`, $options: "i" } },
             ]
         })
     }
