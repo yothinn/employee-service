@@ -179,31 +179,3 @@ exports.delete = function (req, res) {
         };
     });
 };
-
-exports.search = function (req, res) {
-    let searchText = req.query.query;
-    let query = {
-
-        $or: [
-            { firstName: { $regex: `^${searchText}`, $options: "i" } },
-            { lastName: { $regex: `^${searchText}`, $options: "i" } }
-        ]
-    };
-    console.log(query);
-
-    Employee.find(query, function (err, datas) {
-        if (err) {
-            return res.status(400).send({
-                status: 400,
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            // console.log(datas);
-            res.jsonp({
-                status: 200,
-                data: datas
-            });
-        };
-    });
-
-}
