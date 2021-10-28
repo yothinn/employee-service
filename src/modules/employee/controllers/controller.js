@@ -5,7 +5,9 @@ var mongoose = require('mongoose'),
     Employee = mongoose.model('Employee'),
     errorHandler = require('../../core/controllers/errors.server.controller'),
     _ = require('lodash');
-    const XLSX = require('xlsx');
+
+const XLSX = require('xlsx');
+const fs = require('fs');
 
 exports.getList = async function (req, res) {
     var pageNo = parseInt(req.query.pageNo);
@@ -180,29 +182,29 @@ exports.delete = function (req, res) {
         };
     });
 };
-exports.uploads = (req, res) => {
-    
+exports.uploads = function (req, res) {
     console.log(req.file.path)
 
     var filePath = req.file.path
     const workbook = XLSX.readFile(filePath);
     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-    let dataEmployee = XLSX.utils.sheet_to_json(worksheet)
+    let dataEmployee = XLSX.utils.sheet_to_json(worksheet);
 
-    for (let data of dataEmployee) {
-        let newEmployee = new Employee(data);
-        newEmployee.save(function (err, data) {
-            if (err) {
-                return res.status(400).send({
-                    status: 400,
-                    message: errorHandler.getErrorMessage(err)
-                });
-            }
+    try {
+        dataEmployee.map(res => {
+            let newEmployee = new Employee(res);
+            newEmployee.save()
         })
+        res.jsonp({
+            status: 200
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            status: 400,
+            message: errorHandler.getErrorMessage(err)
+        });
     }
-    res.jsonp({
-        status: 200,
-        // data: data  หรือ status
-    });
     fs.unlinkSync(filePath);
 }
